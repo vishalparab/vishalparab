@@ -1,0 +1,91 @@
+Aim: Develop a JSP Application to accept Registration Details form user and Store it into the database table.
+
+Source Code:
+index.jsp
+<%-- 
+Document   : index
+Created on : Jul 29, 2017, 9:41:43 AM
+Author     : student
+--%>
+
+<%@page contentType="text/html" pageEncoding="UTF-8"%>
+<!DOCTYPE html>
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<title>JSP Page</title>
+</head>
+<body>
+<form name="f1" action="insert.jsp">
+<h1><center>Login</center></h1>
+User name:
+<input type="text" name="txtname"><br><br>
+Password:
+<input type="password" name="txtpass"><br><br>
+Email id:
+<input type="text" name="txtid"><br><br>
+
+
+
+
+
+<input type="submit" name="Register"><br>
+<input type="reset" name="Reset">
+</form>
+</body>
+</html>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+insert.jsp
+<%-- 
+Document   : insert
+Created on : Jul 29, 2017, 9:43:05 AM
+Author     : student
+--%>
+
+<%@page contentType="text/html" pageEncoding="UTF-8"%>
+<!DOCTYPE html>
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<title>JSP Page</title>
+</head>
+<body>
+<%@page import="java.sql.*"%>
+<%
+try{Class.forName("com.mysql.jdbc.Driver").newInstance();
+Connection con=DriverManager.getConnection("jdbc:mysql://localhost/db");
+PreparedStatement ps=con.prepareStatement("insert into reg values(?,?,?)");
+ps.setString(1,request.getParameter("txtname"));
+ps.setString(2,request.getParameter("txtpass"));
+ps.setString(3,request.getParameter("txtid"));
+ps.executeUpdate();
+ps.close();
+}
+catch(Exception e)
+{
+out.println(e.getMessage());
+}
+%>
+Record Inserted..
+</body>
+</html>

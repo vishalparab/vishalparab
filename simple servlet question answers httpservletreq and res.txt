@@ -1,0 +1,97 @@
+Aim: Develop a simple servlet Questions & Answers application to demonstrate use of HttpServletRequest and HttpServletResponse.
+
+Source Code:
+index.jsp
+<%-- 
+Document   : index
+Created on : Jul 22, 2017, 9:35:43 AM
+Author     : student
+--%>
+
+<%@page contentType="text/html" pageEncoding="UTF-8"%>
+<!DOCTYPE html>
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<title>JSP Page</title>
+</head>
+<body>
+<form method="post" action="classtest">
+<label>Q.1. which is valid keyword?</label>
+<input type="radio" name="r1" value="interface"/>Interface
+<input type="radio" name="r1" value="float"/>Float
+<input type="radio" name="r1" value="string"/>String
+<input type="radio" name="r1" value="all"/>All
+<br><br>
+<label>Q.2. what is JDBC?</label>
+<input type="radio" name="r2" value="jdbc"/>Java database connectivity
+<input type="radio" name="r2" value="jdbc1"/>Java data control
+<input type="radio" name="r2" value="jdbc2"/>Java data component
+<input type="radio" name="r2" value="none"/>None
+<br><br>
+<input type="submit" value="Display Result"/>
+<input type="reset" value="reset"/>
+</form>
+</body>
+</html>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+classtest.java
+package servlet;
+
+import java.io.IOException;
+import java.io.PrintWriter;
+import javax.servlet.ServletException;
+import javax.servlet.http.HttpServlet;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+
+public class classtest extends HttpServlet 
+{
+protected void processRequest(HttpServletRequest request, HttpServletResponse response)
+throws ServletException, IOException 
+{
+response.setContentType("text/html;charset=UTF-8");
+PrintWriter out = response.getWriter();
+try {
+out.println("<html>");
+out.println("<head>");
+out.println("<title>Servlet classtest</title>");            
+out.println("</head>");
+out.println("<body>");
+if(request.getParameter("r1").equals("interface")&& request.getParameter("r2").equals("jdbc"))
+out.println("<h1>you are pass</h1>");
+else
+
+
+
+
+
+
+
+out.println("<h1>you are fail</h1>");
+out.println("</body>");
+out.println("</html>");
+}
+finally {            
+out.close();
+}
+}

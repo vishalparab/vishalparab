@@ -1,0 +1,212 @@
+index.jsp
+
+<%-- 
+    Document   : index
+    Created on : Aug 4, 2017, 8:46:17 AM
+    Author     : student
+--%>
+<%@page contentType="text/html" pageEncoding="UTF-8"%>
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+        <title>JSP Page</title>
+    </head>
+    <body>
+        <form action="RoomServlet">
+Enter name:<input type="text" name="cname"/><br>
+Room type:<select name="rtype">
+<option value="economy">Economy</option>
+<option value="deluxe">Deluxe</option>
+<option value="executive">Executive</option>
+</select>
+<br>
+Enter days:<input type="text" name="days"/>
+<br>
+<input type="Submit" name="Book"/>
+</form>
+    </body>
+</html>
+
+RoomServlet.java
+/*
+ * To change this template, choose Tools | Templates
+ * and open the template in the editor.
+ */
+package servlet;
+
+import java.io.IOException;
+import java.io.PrintWriter;
+import javax.servlet.ServletException;
+import javax.servlet.http.HttpServlet;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+import ejb.RoomBean;
+import javax.ejb.EJB;
+
+/**
+ *
+ * @author student
+ */
+public class RoomServlet extends HttpServlet {
+@EJB
+RoomBean rb;
+    /**
+     * Processes requests for both HTTP
+
+
+     * <code>GET</code> and
+     * <code>POST</code> methods.
+     *
+     * @param request servlet request
+     * @param response servlet response
+     * @throws ServletException if a servlet-specific error occurs
+     * @throws IOException if an I/O error occurs
+     */
+    protected void processRequest(HttpServletRequest request, HttpServletResponse response)
+            throws ServletException, IOException {
+        response.setContentType("text/html;charset=UTF-8");
+        PrintWriter out = response.getWriter();
+        try {
+            /*
+             * TODO output your page here. You may use following sample code.
+             */
+            out.println("<html>");
+            out.println("<head>");
+            out.println("<title>Servlet RoomServlet</title>");            
+            out.println("</head>");
+            out.println("<body>");
+            out.println("<h1>Servlet RoomServlet at " + request.getContextPath() + "</h1>");
+            out.println("</body>");
+            out.println("</html>");
+        } finally {            
+            out.close();
+
+
+        }
+    }
+    // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
+    /**
+     * Handles the HTTP
+     * <code>GET</code> method.
+     *
+     * @param request servlet request
+     * @param response servlet response
+     * @throws ServletException if a servlet-specific error occurs
+     * @throws IOException if an I/O error occurs
+     */
+    @Override
+    protected void doGet(HttpServletRequest request, HttpServletResponse response)
+            throws ServletException, IOException {
+  response.setContentType("text/html;charset=UTF-8");
+        PrintWriter out = response.getWriter();
+        try {
+            String name=request.getParameter("cname");
+            String type=request.getParameter("rtype");
+            int days=Integer.parseInt(request.getParameter("days"));
+            if(!name.equals(""))
+            {
+                int bill_amt=rb.calculate(type,days);
+                        /*
+            
+
+ * TODO output your page here. You may use following sample code.
+             */
+            out.println("<html>");
+            out.println("<head>");
+            out.println("<title>Servlet RoomServlet</title>");            
+            out.println("</head>");
+            out.println("<body>");
+           out.println("Room booked for"+name+"with bill"+bill_amt+"Thank you");
+            out.println("</body>");
+            out.println("</html>");
+            }
+ }
+ finally {            
+            out.close();
+        }
+    }
+
+  /**
+     * Handles the HTTP
+     * <code>POST</code> method.
+     *
+     * @param request servlet request
+     * @param response servlet response
+     * @throws ServletException if a servlet-specific error occurs
+     * @throws IOException if an I/O error occurs
+     */
+
+
+    @Override
+    protected void doPost(HttpServletRequest request, HttpServletResponse response)
+            throws ServletException, IOException {
+        processRequest(request, response);
+    }
+
+    /**
+     * Returns a short description of the servlet.
+     *
+     * @return a String containing servlet description
+     */
+    @Override
+    public String getServletInfo() {
+        return "Short description";
+    }// </editor-fold>
+}
+
+
+
+
+
+
+RoomBean.java
+/*
+ * To change this template, choose Tools | Templates
+ * and open the template in the editor.
+ */
+package ejb;
+
+import javax.ejb.Stateless;
+import javax.ejb.LocalBean;
+
+/**
+ *
+ * @author student
+ */
+@Stateless@LocalBean
+public class RoomBean {
+    int del_amt=3000;int eco_amt=1000;int exe_amt=5000;
+public int calculate(String room_type,int numday)
+{
+int result=0;
+if(room_type.equals("economy"))
+{
+result=(eco_amt*numday);}
+else if(room_type.equals("deluxe"))
+{
+
+
+result=(del_amt*numday);}
+else if(room_type.equals("executive"))
+{
+result=(exe_amt*numday);}
+return result;
+}}
+
+
+    // Add business logic below. (Right-click in editor and choose
+    // "Insert Code > Add Business Method")
+
+
+
+
+
+
+
+
+
+
+
+
+

@@ -1,0 +1,110 @@
+Source Code:
+index.jsp
+<%-- 
+Document   : index
+Created on : Jul 29, 2017, 10:37:41 AM
+Author     : student
+--%>
+
+<%@page contentType="text/html" pageEncoding="UTF-8"%>
+<!DOCTYPE html>
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<title>JSP Page</title>
+</head>
+<body>
+<form name="f1" action="valid.jsp">
+<h1><center>Login</center></h1>
+User name:
+<input type="text" name="txtname"><br><br>
+Password:
+<input type="password" name="txtpass"><br><br>
+<input type="submit" name="Login">
+<input type="reset" name="Reset">
+</form>
+</body>
+</html>
+valid.jsp
+<%-- 
+Document   : valid
+Created on : Jul 29, 2017, 10:38:02 AM
+Author     : student
+--%>
+
+<%@page contentType="text/html" pageEncoding="UTF-8"%>
+<!DOCTYPE html>
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<title>JSP Page</title>
+</head>
+<body>
+<%@page import="java.sql.*"%>
+<%!String pass=" ";%>
+<%
+try{
+Class.forName("com.mysql.jdbc.Driver").newInstance();
+Connection con=DriverManager.getConnection("jdbc:mysql://localhost/db");
+Statement st=con.createStatement();
+String a=request.getParameter("txtname");
+String b=request.getParameter("txtpass");
+ResultSet rs=st.executeQuery("select pass from reg where name='"+a+"'");
+while(rs.next())
+{
+pass=rs.getString(1);
+}
+if(b.equals(pass))
+{
+%><jsp:forward page="welcome.jsp"/>
+<%}
+else
+{
+out.println("<h1>Invalid User</h1>");
+}
+}
+catch(Exception e)
+{
+out.println(e.getMessage());
+}
+%>
+</body>
+</html>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+welcome.jsp
+<%-- 
+Document   : welcome
+Created on : Jul 29, 2017, 10:38:13 AM
+Author     : student
+--%>
+
+<%@page contentType="text/html" pageEncoding="UTF-8"%>
+<!DOCTYPE html>
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<title>JSP Page</title>
+</head>
+<body>
+<h1>Hello! Welcome you are valid User</h1>
+</body>
+</html>
+

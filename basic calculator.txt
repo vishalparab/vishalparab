@@ -1,0 +1,115 @@
+Aim: Develop Servlet application of basic calculator using ServletInputStream and Servlet Output Stream.
+
+Source Code:
+index.jsp
+<%-- 
+Document   : index
+Created on : Jul 22, 2017, 10:25:37 AM
+Author     : student
+--%>
+
+<%@page contentType="text/html" pageEncoding="UTF-8"%>
+<!DOCTYPE html>
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<title>JSP Page</title>
+</head>
+<body>
+<form method="post" action="calculator">
+<label for="no1">
+Enter number 1
+</label>
+<input type="text" id="no1" name="no1"/>
+<br><br>
+<label for="no2">
+
+
+
+
+
+
+Enter number 2
+</label>
+<input type="text" id="no2" name="no2"/>
+<br><br>
+<select name="opr">
+<option>Addition</option>
+<option>Subtraction</option>
+<option>Multiplication</option>
+<option>Division</option>
+</select>
+<br><br><br><br><br>
+<input type="submit" value="Display Result"/>
+<input type="reset" value="reset"/>
+</form>
+</body>
+</html>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+calculator.java
+package servlet;
+
+import java.io.IOException;
+import java.io.PrintWriter;
+import javax.servlet.ServletException;
+import javax.servlet.http.HttpServlet;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+
+public class calculator extends HttpServlet {
+protected void processRequest(HttpServletRequest request, HttpServletResponse response)
+throws ServletException, IOException {
+response.setContentType("text/html;charset=UTF-8");
+PrintWriter out = response.getWriter();
+try {
+out.println("<html>");
+out.println("<head>");
+out.println("<title>Servlet calculator</title>");            
+out.println("</head>");
+out.println("<body>");
+float result=0;
+float a=Float.parseFloat(request.getParameter("no1"));
+float b=Float.parseFloat(request.getParameter("no2"));
+String opr=request.getParameter("opr");
+if(opr.equals("Addition"))
+{
+result=a+b;
+}
+
+
+
+
+else if(opr.equals("Subtraction"))
+{
+result=a-b;
+}
+else if(opr.equals("Multiplication"))
+{
+result=a*b;
+}
+else if(opr.equals("Division"))
+{
+result=a/b;
+}
+out.println("<h1>Result of "+opr+" of "+a+" and "+b+" is "+result+"</h1>");
+out.println("</body>");
+out.println("</html>");
+} 
+finally {            
+out.close();
+}
+}
+
