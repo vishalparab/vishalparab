@@ -1,0 +1,60 @@
+import java.awt.*;
+import java.awt.event.*;
+import javax.swing.*;
+import javax.swing.event.*;
+public class ListDemo extends JFrame
+implements ListSelectionListener
+{
+JList jlst;JLabel l1,l2;
+JScrollPane jsp;int idx;
+String items[]={"Notebook","Pen","Eraser"};
+public ListDemo()
+{
+getContentPane().setLayout(new BorderLayout());
+jlst=new JList(items);
+jlst.addListSelectionListener(this);
+jlst.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
+jsp=new JScrollPane(jlst);
+l1=new JLabel("select product");
+l2=new JLabel("select price");
+getContentPane().add(l1,BorderLayout.NORTH);
+getContentPane().add(l2,BorderLayout.SOUTH);
+getContentPane().add(jsp,BorderLayout.CENTER);
+}
+public void valueChanged(ListSelectionEvent e)
+{
+idx=jlst.getSelectedIndex();
+if(idx!=-1)
+{
+l1.setText("current selection"+items[idx]);
+Show(idx);
+}
+else
+{
+l1.setText("select product");
+}
+}
+public void Show(int i)
+{
+if(i==0)
+{
+l2.setText("price of"+items[i]+"10rs");
+}
+else if(i==1)
+{
+l2.setText("price of"+items[i]+"20rs");
+}
+else if(i==2)
+{
+l2.setText("price of"+items[i]+"30rs");
+}
+}
+public static void main(String args[])
+{
+ListDemo ld=new ListDemo();
+ld.setTitle("Stationary");
+ld.setSize(300,200);
+ld.setVisible(true);
+ld.setDefaultCloseOperation(EXIT_ON_CLOSE);
+}
+}

@@ -1,0 +1,21 @@
+import javax.swing.*;
+import javax.swing.table.*;
+public class pract2
+{
+public static void main(String[] args)
+{
+JFrame f= new JFrame();
+f.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+String[] ColTitles={"Empid","Name","Designation","Qualification"};
+Object[][] dataEntries={{"emp01","ABC","Manager","MCA"},
+		    {"emp02","XYZ","HOD","MBA"},
+		    {"emp03","PQR","Staff","BCA"}};
+JTable tab=new JTable(dataEntries,ColTitles);
+String[] Education={"M.Sc","B.Sc.","M.Com","M.A."};
+JComboBox cb=new JComboBox(Education);
+tab.getColumnModel().getColumn(3).setCellEditor(new DefaultCellEditor(cb));
+f.add(new JScrollPane(tab));
+f.setSize(300,200);
+f.setVisible(true);
+}
+}
